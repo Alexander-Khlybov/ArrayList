@@ -9,6 +9,6 @@ script:
   - cmake ../ArrayList
   - make -j
   - cd ./bin/
-  - ./test_postfix --gtest_list_tests
+  - ./test_list --gtest_list_tests
 notifications:
   email: alekshlybov23@gmail.com
