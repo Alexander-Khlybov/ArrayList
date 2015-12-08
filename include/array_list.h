@@ -1,1 +1,20 @@
 #pragma once
+
+#include <iostream>
+
+#define _BUF_ 2
+
+using namespace std;
+typedef int KeyType;
+
+class List {
+public:
+    List(int size = 10);
+    List(const List&);
+    ~List(void);
+
+private:
+    int maxSize_;
+    KeyType* data_;
+    int* nextRefs_;
+};
