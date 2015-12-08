@@ -8,19 +8,23 @@ using namespace std;
 typedef int KeyType;
 
 class List {
-public:
-    List(int size = 10);
-    List(const List&);
-    ~List(void);
-
-    int find(const KeyType& ) const;
-    
-
-
 private:
     int maxSize_;
     KeyType* data_;
     int* nextRefs_;
 
-	int getFreeMemorySlot(void) const;
+    int getFreeMemorySlot(void) const;
+    int getAddressOfPenultimateNode(void) const;
+    int getAddressOfPreviousKey(const KeyType&) const;
+
+public:
+    List(int size = 10);
+    List(const List&);
+    ~List(void);
+
+    int find(const KeyType&) const;
+    void remove(const KeyType&);
+    void removeBefore(const KeyType&);
+    void removeAfter(const KeyType&);
+    void removeEnd(void);
 };
