@@ -114,7 +114,11 @@ void List::remove(const KeyType& findKey){
 }
 
 void List::removeBefore(const KeyType& findKey){
-	int temporaryAddress = getAddressOfPreviousKey(data_[getAddressOfPreviousKey(findKey)]);
+	int previousAddress = getAddressOfPreviousKey(findKey);
+	if (previousAddress == -1)
+		throw("List contains only one node");
+		
+	int temporaryAddress = getAddressOfPreviousKey(data_[previousAddress]);
 
 	if (temporaryAddress == -1){
 		int tmp = nextRefs_[0];
