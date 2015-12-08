@@ -32,3 +32,9 @@
 *.opensdf
 *.vcxproj.*
 *.vcxproj
+*.pdb
+*.ilk
+*.exe
+*.log
+*.tlog
+*.idb
