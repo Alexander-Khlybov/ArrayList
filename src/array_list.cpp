@@ -40,3 +40,29 @@ List::~List(void){
 	delete [] data_;
 	delete [] nextRefs_;
 }
+
+int getFreeMemorySlot(void){
+	int i = _BUF_;
+
+	while (i < maxSize_){ 
+		if (nextRefs[i] == 1)
+			break;
+		i++;
+	}
+
+	if (i == maxSize_)
+		i == -1;
+	return i;
+}
+
+int find(const KeyType& findKey) const{
+	int tmp = nextRefs_[0];
+
+	while ((tmp != 0) && (data_[tmp] != findKey))
+		tmp = nextRefs_[tmp];
+
+	if (data_[tmp] != key)
+		throw("Key hasn't been found");
+	return tmp;
+}
+
