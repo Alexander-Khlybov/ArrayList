@@ -13,8 +13,14 @@ public:
     List(const List&);
     ~List(void);
 
+    int find(const KeyType& ) const;
+    
+
+
 private:
     int maxSize_;
     KeyType* data_;
     int* nextRefs_;
+
+	int getFreeMemorySlot(void) const;
 };
