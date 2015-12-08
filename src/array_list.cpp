@@ -2,12 +2,13 @@
 
 List::List(int maxSize){
 	if (maxSize < 0)
-		throw
-			length_error("Length error");
+		throw("Size of the buffer memory cannot be negative");
 
 	maxSize_ = maxSize + _BUF_;
 	data_ = new KeyType[maxSize_];
 	nextRefs_ = new int[maxSize_];
+	if ((data_ == 0) || (nextRefs_ == 0))
+		throw("Failed to allocate memory");
 
     for (int i = _BUF_ ; i < maxSize_ ; i++)
 		nextRefs_[i] = 1;
@@ -19,6 +20,8 @@ List::List(const List& list){
 	maxSize_ = list.maxSize_;
 	data_ = new KeyType[maxSize_];
 	nextRefs_ = new int[maxSize_];
+	if ((data_ == 0) || (nextRefs_ == 0))
+		throw("Failed to allocate memory");
 
 	for(int i = _BUF_ ; i < maxSize_ ; i++)
 		nextRefs_[i] = 1;
