@@ -31,11 +31,12 @@ public:
 /*
     void PushAfter(KeyType, KeyType);
     void PushEnd(KeyType);
-    void Swap(void);
-    int SearchMax(void);
-    void Sort(void);
-    void PushSort(void);
-    */
+    void Sort(void);*/
+
+    int searchMax(void) const;
+    void swap (void); // поменять местами первый и последний
+    void ft(const KeyType&);
+    
     friend ostream& operator<<(ostream& out, const List& list) {
         int temporaryAddress = list.nextRefs_[0];
         while (temporaryAddress != 0) {

@@ -174,32 +174,61 @@ void ArrayList::PushAfter(KeyType pushkey, KeyType key)
 	nextRefs[tmp] = nextRefs[idx];
 	nextRefs[idx] = tmp;
 	data[tmp] = pushkey;
+}*/
+
+
+
+
+
+int List::searchMax(void) const{
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	int tmp = nextRefs_[0];
+	KeyType max = data_[tmp];
+	int tempAddr = tmp;
+
+	while (tmp != 0){
+		if (data_[tmp] > max){
+			max = data_[tmp];
+			tempAddr = tmp;
+		}
+		tmp = nextRefs_[tmp];
+	}
+
+	return tempAddr;
 }
 
+//void ArrayList::Sort(void){}
 
+void List::swap (void){
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
 
+	if (nexRefs_[nexRefs_[0]] == 0)
+		return;
 
+	int temporaryAddress = getAddressOfPenultimateNode();
+	int first = nextRefs_[0];
 
-int ArrayList::SearchMax(void)
-{
-	ValueType max = data[2];
-	for (int i = 2; i < maxsize; i++)
-		if (data[i] > max)
-			max = data[i];
+	int tmp = nextRefs_[first];
 
+	nextRefs_[first] = 0;
+	nextRefs_[0] = nextRefs_[temporaryAddress];
+	nextRefs_[temporaryAddress] = first;
 }
 
-void ArrayList::Sort(void)
-{
+void List::ft(const KeyType& key){
+	int temporaryAddress = getFreeMemorySlot();
+	if (temporaryAddress == -1)
+		throw("Нет памяти");
 
+	int tmp = 0;
+	while ((nextRefs_[tmp] != 0) && (data_[nextRefs_[tmp]] < key))
+		tmp = nextRefs_[tmp];
+
+	int t = nextRefs_[tmp];
+	nextRefs_[tmp] = temporaryAddress;
+	nextRefs_[temporaryAddress] = t;
 }
-
-void ArrayList::Swap(void)
-{
-
-}
-
-void ArrayList::PushSort(void)
-{
-
-} */
+ 
