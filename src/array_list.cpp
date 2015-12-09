@@ -37,7 +37,7 @@ List::~List(void){
 	delete [] nextRefs_;
 }
 
-int List::getFreeMemorySlot(void) const{
+int List::getAddressFreeMemorySlot(void) const{
 	int i = _BUF_;
 
 	while (i < maxSize_){ 
@@ -150,3 +150,56 @@ void List::removeEnd(void){
 		nextRefs_[temporaryAddress] = 0;
 	}
 }
+
+// ****************************************************** //
+/*
+
+void ArrayList::PushEnd(KeyType key)
+{
+	int tmp = SearchEmpty();
+	int cur = nextRefs[0];
+	while (nextRefs[cur] != 0)
+		cur = nextRefs[cur];
+	data[tmp] = key;
+	nextRefs[tmp] = 0;
+	nextRefs[cur] = tmp;
+}
+
+void ArrayList::PushAfter(KeyType pushkey, KeyType key)
+{
+	int idx = Search(key);
+	if (idx == -1)
+		throw("Error");
+	int tmp = SearchEmpty();
+	nextRefs[tmp] = nextRefs[idx];
+	nextRefs[idx] = tmp;
+	data[tmp] = pushkey;
+}
+
+
+
+
+
+int ArrayList::SearchMax(void)
+{
+	ValueType max = data[2];
+	for (int i = 2; i < maxsize; i++)
+		if (data[i] > max)
+			max = data[i];
+
+}
+
+void ArrayList::Sort(void)
+{
+
+}
+
+void ArrayList::Swap(void)
+{
+
+}
+
+void ArrayList::PushSort(void)
+{
+
+} */

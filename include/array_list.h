@@ -13,7 +13,7 @@ private:
     KeyType* data_;
     int* nextRefs_;
 
-    int getFreeMemorySlot(void) const;
+    int getAddressFreeMemorySlot(void) const;
     int getAddressOfPenultimateNode(void) const;
     int getAddressOfPreviousKey(const KeyType&) const;
 
@@ -27,4 +27,22 @@ public:
     void removeBefore(const KeyType&);
     void removeAfter(const KeyType&);
     void removeEnd(void);
+
+/*
+    void PushAfter(KeyType, KeyType);
+    void PushEnd(KeyType);
+    void Swap(void);
+    int SearchMax(void);
+    void Sort(void);
+    void PushSort(void);
+    */
+    friend ostream& operator<<(ostream& out, const List& list) {
+        int temporaryAddress = list.nextRefs_[0];
+        while (temporaryAddress != 0) {
+            out << "| " << list.data_[temporaryAddress] << " | -> ";
+            temporaryAddress = list.nextRefs_[temporaryAddress];
+        }
+        out << "\\|||";
+        return out;
+    }
 };
