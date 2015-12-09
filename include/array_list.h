@@ -27,15 +27,13 @@ public:
     void removeBefore(const KeyType&);
     void removeAfter(const KeyType&);
     void removeEnd(void);
-
-/*
-    void PushAfter(KeyType, KeyType);
-    void PushEnd(KeyType);
-    void Sort(void);*/
-
+    void push(const KeyType&);
+    void pushEnd(const KeyType&);
+    void pushBefore(const KeyType&,  const KeyType&);
+    void pushAfter(const KeyType&,  const KeyType&);
     int searchMax(void) const;
     void swap (void); // поменять местами первый и последний
-    void ft(const KeyType&);
+    void insertInOrderedList(const KeyType&);
     
     friend ostream& operator<<(ostream& out, const List& list) {
         int temporaryAddress = list.nextRefs_[0];

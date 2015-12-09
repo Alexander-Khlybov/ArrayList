@@ -57,7 +57,7 @@ int List::getAddressOfPenultimateNode(void) const{
 
 	int address = 0;
 
-    if ((nextRefs_[nextRefs_[0]] == 0) && (nextRefs_[0] != 0)) {
+    if (nextRefs_[nextRefs_[0]] == 0) {
         address = -1;
     } else {
 		while(nextRefs_[nextRefs_[address]] != 0)
@@ -151,34 +151,60 @@ void List::removeEnd(void){
 	}
 }
 
-// ****************************************************** //
-/*
+void List::push(const KeyType& addKey){
+	int temporaryAddress = getAddressFreeMemorySlot();
+	if (temporaryAddress == -1)
+		throw("Failed to allocate memory.");
 
-void ArrayList::PushEnd(KeyType key)
-{
-	int tmp = SearchEmpty();
-	int cur = nextRefs[0];
-	while (nextRefs[cur] != 0)
-		cur = nextRefs[cur];
-	data[tmp] = key;
-	nextRefs[tmp] = 0;
-	nextRefs[cur] = tmp;
+	nextRefs_[temporaryAddress] = nextRefs_[0];
+	nextRefs_[0] = temporaryAddress;
+	data_[temporaryAddress] = addKey;
 }
 
-void ArrayList::PushAfter(KeyType pushkey, KeyType key)
-{
-	int idx = Search(key);
-	if (idx == -1)
-		throw("Error");
-	int tmp = SearchEmpty();
-	nextRefs[tmp] = nextRefs[idx];
-	nextRefs[idx] = tmp;
-	data[tmp] = pushkey;
-}*/
+void List::pushEnd(const KeyType& addKey){
+	int temporaryAddress = getAddressFreeMemorySlot();
+	if (temporaryAddress == -1)
+		throw("Failed to allocate memory.");
+	data_[temporaryAddress] = addKey;
 
+	int addressOfPenultimateNode;
+	try{
+		addressOfPenultimateNode = getAddressOfPenultimateNode();
+	} catch (...) {
+		nextRefs_[0] = temporaryAddress;
+		nextRefs_[temporaryAddress] = 0;
+		return;
+	}
 
+	nextRefs_[nextRefs_[addressOfPenultimateNode]] = temporaryAddress;
+	nextRefs_[temporaryAddress] = 0;
+}
 
+void List::pushBefore(const KeyType& findKey, const KeyType& addKey){
+	int temporaryAddress = getAddressFreeMemorySlot();
+	if (temporaryAddress == -1)
+		throw("Failed to allocate memory.");
 
+	int addressFound = getAddressOfPreviousKey(findKey);
+
+	int tmp = nextRefs_[addressFound];
+	nextRefs_[addressFound] = temporaryAddress;
+	nextRefs_[temporaryAddress] = tmp;
+	data_[temporaryAddress] = addKey;
+}
+
+void List::pushAfter(const KeyType& findKey, const KeyType& addKey){
+	int temporaryAddress = getAddressFreeMemorySlot();
+	if (temporaryAddress == -1)
+		throw("Failed to allocate memory.");
+
+	int addressFound = find(findKey);
+
+	int tmp = nextRefs_[addressFound];
+	nextRefs_[addressFound] = temporaryAddress;
+	nextRefs_[temporaryAddress] = tmp;
+	data_[temporaryAddress] = addKey;
+}
 
 int List::searchMax(void) const{
 	if (nextRefs_[0] == 0)
@@ -199,9 +225,7 @@ int List::searchMax(void) const{
 	return tempAddr;
 }
 
-//void ArrayList::Sort(void){}
-
-void List::swap (void){
+void List::swap(void){
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
@@ -218,13 +242,13 @@ void List::swap (void){
 	nextRefs_[temporaryAddress] = first;
 }
 
-void List::ft(const KeyType& key){
+void List::insertInOrderedList(const KeyType& findKey){
 	int temporaryAddress = getAddressFreeMemorySlot();
 	if (temporaryAddress == -1)
-		throw("Нет памяти");
+		throw("Failed to allocate memory.");
 
 	int tmp = 0;
-	while ((nextRefs_[tmp] != 0) && (data_[nextRefs_[tmp]] < key))
+	while ((nextRefs_[tmp] != 0) && (data_[nextRefs_[tmp]] < findKey))
 		tmp = nextRefs_[tmp];
 
 	int t = nextRefs_[tmp];
