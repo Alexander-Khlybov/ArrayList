@@ -22,6 +22,10 @@ public:
     List(const List&);
     ~List(void);
 
+    List& operator= (const List&);
+    int operator== (const List&)const;
+    int operator!= (const List&)const;
+
     int find(const KeyType&) const;
     void remove(const KeyType&);
     void removeBefore(const KeyType&);

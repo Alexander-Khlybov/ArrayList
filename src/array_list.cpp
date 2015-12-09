@@ -86,6 +86,49 @@ int List::getAddressOfPreviousKey(const KeyType& findKey) const{
 	return tmp;
 }
 
+List& List::operator= (const List& list){
+	if (this != &list){
+		delete[]data_;
+		delete[]nextRefs_;
+
+		maxSize_ = list.maxSize_;
+		data_ = new KeyType[maxSize_];
+		nextRefs_ = new int[maxSize_];
+		nextRefs_[0] = 0;
+		nextRefs_[1] = -1;
+		for (int i = 2; i < maxSize_;i++)
+			nextRefs_[i] = 1;
+
+		int first = list.nextRefs_[0];
+		while(first != 0){
+			pushEnd(list.data_[first]);
+			first = list.nextRefs_[first];
+		}
+	}
+	return *this;
+}
+
+
+int List::operator== (const List& list)const{
+	int first1 = nextRefs_[0];
+	int first2 = list.nextRefs_[0];
+	while ((first1 != 0) && (first2 != 0)){
+		if (data_[first1] != list.data_[first2])
+			return 0;
+		first1 = nextRefs_[first1];
+		first2 = list.nextRefs_[first2];
+	}
+	if ((first1 || first2) != 0)
+		return 0;
+	return 1;
+}
+
+int List::operator!= (const List& list)const{
+	return !(*this == list);
+}
+
+
+
 int List::find(const KeyType& findKey) const{
     if (nextRefs_[0] == 0)
         throw("List is empty");
