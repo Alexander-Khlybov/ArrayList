@@ -205,7 +205,7 @@ void List::swap (void){
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
-	if (nexRefs_[nexRefs_[0]] == 0)
+	if (nextRefs_[nextRefs_[0]] == 0)
 		return;
 
 	int temporaryAddress = getAddressOfPenultimateNode();
@@ -219,7 +219,7 @@ void List::swap (void){
 }
 
 void List::ft(const KeyType& key){
-	int temporaryAddress = getFreeMemorySlot();
+	int temporaryAddress = getAddressFreeMemorySlot();
 	if (temporaryAddress == -1)
 		throw("Нет памяти");
 
