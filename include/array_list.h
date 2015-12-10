@@ -26,6 +26,7 @@ public:
     int operator== (const List&)const;
     int operator!= (const List&)const;
 
+    KeyType getListElement(int) const;
     int find(const KeyType&) const;
     void remove(const KeyType&);
     void removeBefore(const KeyType&);
@@ -35,10 +36,10 @@ public:
     void pushEnd(const KeyType&);
     void pushBefore(const KeyType&,  const KeyType&);
     void pushAfter(const KeyType&,  const KeyType&);
-    int searchMax(void) const;
-    int searchMin(void) const;
+    int searchAddressMax(void) const;
+    int searchAddressMin(void) const;
 
-    void swap (void); // поменять местами первый и последний
+    void swapFirstAndLastElements(void);
     void insertInOrderedList(const KeyType&);
     
     friend ostream& operator<<(ostream& out, const List& list) {

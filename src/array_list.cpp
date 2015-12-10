@@ -127,7 +127,15 @@ int List::operator!= (const List& list)const{
 	return !(*this == list);
 }
 
-
+KeyType getListElement(int address) const{
+	int temporaryAddress = nextRefs_[0];
+	while ((temporaryAddress != 0) && (temporaryAddress != address)){
+		temporaryAddress = nextRefs_[temporaryAddress];
+	}
+	if (temporaryAddress != address)
+		throw("Non-existent address");
+	return data_[address];
+}
 
 int List::find(const KeyType& findKey) const{
     if (nextRefs_[0] == 0)
@@ -287,7 +295,7 @@ int List::searchMin(void) const{
 	return tempAddr;
 }
 
-void List::swap(void){
+void List::swapFirstAndLastElements(void){
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
