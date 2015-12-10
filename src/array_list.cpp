@@ -127,7 +127,15 @@ int List::operator!= (const List& list)const{
 	return !(*this == list);
 }
 
-
+KeyType List::getListElement(int address) const{
+	int temporaryAddress = nextRefs_[0];
+	while ((temporaryAddress != 0) && (temporaryAddress != address)){
+		temporaryAddress = nextRefs_[temporaryAddress];
+	}
+	if (temporaryAddress != address)
+		throw("Non-existent address");
+	return data_[address];
+}
 
 int List::find(const KeyType& findKey) const{
     if (nextRefs_[0] == 0)
@@ -249,7 +257,7 @@ void List::pushAfter(const KeyType& findKey, const KeyType& addKey){
 	data_[temporaryAddress] = addKey;
 }
 
-int List::searchMax(void) const{
+int List::searchAddressMax(void) const{
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
@@ -268,7 +276,26 @@ int List::searchMax(void) const{
 	return tempAddr;
 }
 
-void List::swap(void){
+int List::searchAddressMin(void) const{
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	int tmp = nextRefs_[0];
+	KeyType min = data_[tmp];
+	int tempAddr = tmp;
+
+	while (tmp != 0){
+		if (data_[tmp] < min){
+			min = data_[tmp];
+			tempAddr = tmp;
+		}
+		tmp = nextRefs_[tmp];
+	}
+
+	return tempAddr;
+}
+
+void List::swapFirstAndLastElements(void){
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
@@ -298,4 +325,42 @@ void List::insertInOrderedList(const KeyType& findKey){
 	nextRefs_[tmp] = temporaryAddress;
 	nextRefs_[temporaryAddress] = t;
 }
- 
+void List::sortListAscending(void){
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	List list(*this);
+	int minAddress = 0;
+	int tmp = 0;
+
+	while(nextRefs_[0] != 0)
+		remove(data_[nextRefs_[0]]);
+
+	while(list.nextRefs_[0] != 0){
+		minAddress = list.searchAddressMin();
+		list.remove(data_[minAddress]);
+		nextRefs_[tmp] = minAddress;
+		tmp = nextRefs_[tmp];
+	}
+	nextRefs_[tmp] = 0;
+}
+
+void List::sortListDescending(void){
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	List list(*this);
+	int maxAddress = 0;
+	int tmp = 0;
+
+	while(nextRefs_[0] != 0)
+		remove(data_[nextRefs_[0]]);
+
+	while(list.nextRefs_[0] != 0){
+		maxAddress = list.searchAddressMax();
+		list.remove(data_[maxAddress]);
+		nextRefs_[tmp] = maxAddress;
+		tmp = nextRefs_[tmp];
+	}
+	nextRefs_[tmp] = 0;
+}
