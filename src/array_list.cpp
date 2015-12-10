@@ -257,7 +257,7 @@ void List::pushAfter(const KeyType& findKey, const KeyType& addKey){
 	data_[temporaryAddress] = addKey;
 }
 
-int List::searchMax(void) const{
+int List::searchAddressMax(void) const{
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
@@ -276,7 +276,7 @@ int List::searchMax(void) const{
 	return tempAddr;
 }
 
-int List::searchMin(void) const{
+int List::searchAddressMin(void) const{
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
 
@@ -334,10 +334,10 @@ void List::sortListAscending(void){
 	int tmp = 0;
 
 	while(nextRefs_[0] != 0)
-		remove();
+		remove(data_[nextRefs_[0]]);
 
 	while(list.nextRefs_[0] != 0){
-		minAddress = list.searchMin();
+		minAddress = list.searchAddressMin();
 		list.remove(data_[minAddress]);
 		nextRefs_[tmp] = minAddress;
 		tmp = nextRefs_[tmp];
@@ -354,10 +354,10 @@ void List::sortListDescending(void){
 	int tmp = 0;
 
 	while(nextRefs_[0] != 0)
-		remove();
+		remove(data_[nextRefs_[0]]);
 
 	while(list.nextRefs_[0] != 0){
-		maxAddress = list.searchMax();
+		maxAddress = list.searchAddressMax();
 		list.remove(data_[maxAddress]);
 		nextRefs_[tmp] = maxAddress;
 		tmp = nextRefs_[tmp];
