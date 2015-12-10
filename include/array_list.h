@@ -36,6 +36,8 @@ public:
     void pushBefore(const KeyType&,  const KeyType&);
     void pushAfter(const KeyType&,  const KeyType&);
     int searchMax(void) const;
+    int searchMin(void) const;
+
     void swap (void); // поменять местами первый и последний
     void insertInOrderedList(const KeyType&);
     

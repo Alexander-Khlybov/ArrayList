@@ -268,6 +268,25 @@ int List::searchMax(void) const{
 	return tempAddr;
 }
 
+int List::searchMin(void) const{
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	int tmp = nextRefs_[0];
+	KeyType min = data_[tmp];
+	int tempAddr = tmp;
+
+	while (tmp != 0){
+		if (data_[tmp] < min){
+			min = data_[tmp];
+			tempAddr = tmp;
+		}
+		tmp = nextRefs_[tmp];
+	}
+
+	return tempAddr;
+}
+
 void List::swap(void){
 	if (nextRefs_[0] == 0)
 		throw("List is empty");
