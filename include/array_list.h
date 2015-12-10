@@ -41,6 +41,9 @@ public:
 
     void swapFirstAndLastElements(void);
     void insertInOrderedList(const KeyType&);
+
+    void sortListAscending(void);
+    void sortListDescending(void);
     
     friend ostream& operator<<(ostream& out, const List& list) {
         int temporaryAddress = list.nextRefs_[0];

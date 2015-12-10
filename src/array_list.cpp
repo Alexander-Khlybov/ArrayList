@@ -127,7 +127,7 @@ int List::operator!= (const List& list)const{
 	return !(*this == list);
 }
 
-KeyType getListElement(int address) const{
+KeyType List::getListElement(int address) const{
 	int temporaryAddress = nextRefs_[0];
 	while ((temporaryAddress != 0) && (temporaryAddress != address)){
 		temporaryAddress = nextRefs_[temporaryAddress];
@@ -325,4 +325,42 @@ void List::insertInOrderedList(const KeyType& findKey){
 	nextRefs_[tmp] = temporaryAddress;
 	nextRefs_[temporaryAddress] = t;
 }
- 
+void List::sortListAscending(void){
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	List list(*this);
+	int minAddress = 0;
+	int tmp = 0;
+
+	while(nextRefs_[0] != 0)
+		remove();
+
+	while(list.nextRefs_[0] != 0){
+		minAddress = list.searchMin();
+		list.remove(data_[minAddress]);
+		nextRefs_[tmp] = minAddress;
+		tmp = nextRefs_[tmp];
+	}
+	nextRefs_[tmp] = 0;
+}
+
+void List::sortListDescending(void){
+	if (nextRefs_[0] == 0)
+		throw("List is empty");
+
+	List list(*this);
+	int maxAddress = 0;
+	int tmp = 0;
+
+	while(nextRefs_[0] != 0)
+		remove();
+
+	while(list.nextRefs_[0] != 0){
+		maxAddress = list.searchMax();
+		list.remove(data_[maxAddress]);
+		nextRefs_[tmp] = maxAddress;
+		tmp = nextRefs_[tmp];
+	}
+	nextRefs_[tmp] = 0;
+}
